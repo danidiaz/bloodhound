@@ -9,6 +9,7 @@ import qualified Data.Text as T
 import           Database.V5.Bloodhound.Internal.Client
 import           Database.V5.Bloodhound.Internal.Highlight (HitHighlight)
 import           Database.V5.Bloodhound.Internal.Newtypes
+import           Database.V5.Bloodhound.Internal.Newtypes (FieldName)
 import           Database.V5.Bloodhound.Internal.Query
 import           Database.V5.Bloodhound.Internal.Sort
 
