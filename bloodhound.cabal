@@ -1,135 +1,125 @@
-name:                bloodhound
-version:             0.16.0.0
-synopsis:            Elasticsearch client library for Haskell
-description:         Elasticsearch made awesome for Haskell hackers
-homepage:            https://github.com/bitemyapp/bloodhound
-license:             BSD3
-license-file:        LICENSE
-author:              Chris Allen
-maintainer:          cma@bitemyapp.com
-copyright:           2018 Chris Allen
-category:            Database, Search
-build-type:          Simple
-cabal-version:       >=1.10
-
+name: bloodhound
+version: 0.16.0.0
+cabal-version: >=2.0
+build-type: Simple
+license: BSD3
+license-file: LICENSE
+copyright: 2018 Chris Allen
+maintainer: cma@bitemyapp.com
+homepage: https://github.com/bitemyapp/bloodhound
+synopsis: Elasticsearch client library for Haskell
+description:
+    Elasticsearch made awesome for Haskell hackers
+category: Database, Search
+author: Chris Allen
 extra-source-files:
-  README.md
-  changelog.md
-  -- We do this to avoid package check errors when uploading to hackage
-  tests/V1/tests.hs
-  tests/V5/tests.hs
+    README.md
+    changelog.md
 
 source-repository head
-  type:     git
-  location: https://github.com/bitemyapp/bloodhound.git
+    type: git
+    location: https://github.com/danidiaz/bloodhound.git
 
-Flag ES1
-  Description: Run the test suite against an Elasticsearch 1.x server
-  Default:     False
-
-Flag ES5
-  Description: Run the test suite against an Elasticsearch 5.x server
-  Default:     True
+library bloodhound-import
+    exposed-modules:
+        Bloodhound.Import 
+    build-depends:
+        pindeps,
+        base,
+        bytestring,
+        containers,
+        aeson,
+        http-client,
+        network-uri,
+        semigroups,
+        time,
+        text,
+        mtl,
+        transformers,
+        http-types,
+        vector,
+        scientific,
+        blaze-builder,
+        exceptions,
+        hashable,
+        unordered-containers
+    default-language: Haskell2010
+    hs-source-dirs: src
+    ghc-options: -Wall
 
 library
-  ghc-options:         -Wall
-  exposed-modules:     Database.V5.Bloodhound
-                       Database.V5.Bloodhound.Client
-                       Database.V5.Bloodhound.Types
-                       Database.V5.Bloodhound.Types.Class
-                       Database.V5.Bloodhound.Internal.Aggregation
-                       Database.V5.Bloodhound.Internal.Analysis
-                       Database.V5.Bloodhound.Internal.Client
-                       Database.V5.Bloodhound.Internal.Highlight
-                       Database.V5.Bloodhound.Internal.Newtypes
-                       Database.V5.Bloodhound.Internal.Query
-                       Database.V5.Bloodhound.Internal.Sort
-                       Database.V5.Bloodhound.Internal.StringlyTyped
-                       Database.V5.Bloodhound.Internal.Suggest
+    exposed-modules:
+        Database.V5.Bloodhound
+        Database.V5.Bloodhound.Client
+        Database.V5.Bloodhound.Types
+        Database.V5.Bloodhound.Types.Class
+        Database.V5.Bloodhound.Internal.Aggregation
+        Database.V5.Bloodhound.Internal.Analysis
+        Database.V5.Bloodhound.Internal.Client
+        Database.V5.Bloodhound.Internal.Highlight
+        Database.V5.Bloodhound.Internal.Newtypes
+        Database.V5.Bloodhound.Internal.Query
+        Database.V5.Bloodhound.Internal.Sort
+        Database.V5.Bloodhound.Internal.StringlyTyped
+        Database.V5.Bloodhound.Internal.Suggest
+        Database.V1.Bloodhound
+        Database.V1.Bloodhound.Client
+        Database.V1.Bloodhound.Types
+        Database.V1.Bloodhound.Types.Class
+        Database.V1.Bloodhound.Internal.Aggregation
+        Database.V1.Bloodhound.Internal.Client
+        Database.V1.Bloodhound.Internal.Highlight
+        Database.V1.Bloodhound.Internal.Newtypes
+        Database.V1.Bloodhound.Internal.Query
+        Database.V1.Bloodhound.Internal.Sort
+        Database.V1.Bloodhound.Internal.StringlyTyped
+        Database.V1.Bloodhound.Internal.Suggest
+    build-depends:
+        pindeps,
+        base,
+        bytestring,
+        containers,
+        aeson,
+        http-client,
+        network-uri,
+        semigroups,
+        time,
+        text,
+        mtl,
+        transformers,
+        http-types,
+        vector,
+        scientific,
+        blaze-builder,
+        exceptions,
+        hashable,
+        unordered-containers,
+        bloodhound-import
+    default-language: Haskell2010
+    hs-source-dirs: src
+    other-modules:
+        Database.Bloodhound.Common.Script
+    ghc-options: -Wall
 
-                       Database.V1.Bloodhound
-                       Database.V1.Bloodhound.Client
-                       Database.V1.Bloodhound.Types
-                       Database.V1.Bloodhound.Types.Class
-                       Database.V1.Bloodhound.Internal.Aggregation
-                       Database.V1.Bloodhound.Internal.Client
-                       Database.V1.Bloodhound.Internal.Highlight
-                       Database.V1.Bloodhound.Internal.Newtypes
-                       Database.V1.Bloodhound.Internal.Query
-                       Database.V1.Bloodhound.Internal.Sort
-                       Database.V1.Bloodhound.Internal.StringlyTyped
-                       Database.V1.Bloodhound.Internal.Suggest
-
-  other-modules:       Bloodhound.Import
-                       Database.Bloodhound.Common.Script
-  hs-source-dirs:      src
-  build-depends:       base             >= 4.3     && <5,
-                       bytestring       >= 0.10.0  && <0.11,
-                       containers       >= 0.5.0.0 && <0.6,
-                       aeson            >= 0.11.1,
-                       http-client      >= 0.4.30  && <0.6,
-                       network-uri      >= 2.6     && <2.7,
-                       semigroups       >= 0.15    && <0.19,
-                       time             >= 1.4     && <1.9,
-                       text             >= 0.11    && <1.3,
-                       mtl              >= 1.0     && <2.3,
-                       transformers     >= 0.2     && <0.6,
-                       http-types       >= 0.8     && <0.13,
-                       vector           >= 0.10.9  && <0.13,
-                       scientific       >= 0.3.0.0 && <0.4.0.0,
-                       blaze-builder,
-                       exceptions,
-                       hashable,
-                       unordered-containers
-  default-language:    Haskell2010
-
-test-suite bloodhound-tests
-  ghc-options: -Wall -fno-warn-orphans
-  type: exitcode-stdio-1.0
-  main-is: tests.hs
-  if flag(ES1)
-    hs-source-dirs:     tests/V1
-  else
-    hs-source-dirs:     tests/V5
-  other-modules:       Test.Aggregation
-                       Test.ApproxEq
-                       Test.BulkAPI
-                       Test.Common
-                       Test.Documents
-                       Test.Generators
-                       Test.Highlights
-                       Test.Import
-                       Test.Indices
-                       Test.JSON
-                       Test.Query
-                       Test.Snapshots
-                       Test.Sorting
-                       Test.SourceFiltering
-                       Test.Suggest
-                       Test.Templates
-  build-depends:       base,
-                       bloodhound,
-                       bytestring,
-                       http-client,
-                       http-types,
-                       containers,
-                       hspec                >= 1.8,
-                       text,
-                       time,
-                       aeson,
-                       semigroups,
-                       QuickCheck,
-                       vector,
-                       unordered-containers >= 0.2.5.0 && <0.3,
-                       mtl,
-                       pretty-simple,
-                       quickcheck-arbitrary-template,
-                       quickcheck-properties,
-                       errors,
-                       exceptions,
-                       temporary,
-                       unix-compat,
-                       network-uri,
-                       microlens,
-                       microlens-aeson
-  default-language:    Haskell2010
+library pindeps
+    build-depends:
+        base >=4.3 && <5,
+        bytestring >=0.10.0 && <0.11,
+        containers >=0.5.0.0 && <0.6,
+        aeson >=0.11.1 && <1.4,
+        http-client >=0.4.30 && <0.6,
+        network-uri ==2.6.*,
+        semigroups >=0.15 && <0.19,
+        time >=1.4 && <1.9,
+        text >=0.11 && <1.3,
+        mtl >=1.0 && <2.3,
+        transformers >=0.2 && <0.6,
+        http-types >=0.8 && <0.13,
+        vector >=0.10.9 && <0.13,
+        scientific >=0.3.0.0 && <0.4.0.0,
+        blaze-builder >=0.4.0.2 && <0.5,
+        exceptions >=0.8.3 && <0.9,
+        hashable >=1.2.7.0 && <1.3,
+        unordered-containers >=0.2.9.0 && <0.3
+    default-language: Haskell2010
+    ghc-options: -Wall
