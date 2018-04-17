@@ -101,6 +101,36 @@ library
     hs-source-dirs: src
     ghc-options: -Wall
 
+library v5ab-aggregation-impls
+    exposed-modules:
+          Database.V5A.Bloodhound.Internal.Aggregation
+          Database.V5B.Bloodhound.Internal.Aggregation
+    build-depends:
+        pindeps,
+        base,
+        bytestring,
+        containers,
+        aeson,
+        http-client,
+        network-uri,
+        semigroups,
+        time,
+        text,
+        mtl,
+        transformers,
+        http-types,
+        vector,
+        scientific,
+        blaze-builder,
+        exceptions,
+        hashable,
+        unordered-containers,
+        bloodhound-import,
+        v5-internal-minus-aggregation
+    default-language: Haskell2010
+    hs-source-dirs: src
+    ghc-options: -Wall
+
 library v5-abstract
     exposed-modules:
         Database.V5.Bloodhound
