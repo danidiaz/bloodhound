@@ -49,6 +49,60 @@ library bloodhound-import
 
 library
     exposed-modules:
+        Database.V1.Bloodhound
+        Database.V1.Bloodhound.Client
+        Database.V1.Bloodhound.Types
+        Database.V1.Bloodhound.Types.Class
+        Database.V1.Bloodhound.Internal.Aggregation
+        Database.V1.Bloodhound.Internal.Client
+        Database.V1.Bloodhound.Internal.Highlight
+        Database.V1.Bloodhound.Internal.Newtypes
+        Database.V1.Bloodhound.Internal.Query
+        Database.V1.Bloodhound.Internal.Sort
+        Database.V1.Bloodhound.Internal.StringlyTyped
+        Database.V1.Bloodhound.Internal.Suggest
+    reexported-modules:
+        Database.V5.Bloodhound
+        ,Database.V5.Bloodhound.Client
+        ,Database.V5.Bloodhound.Types
+        ,Database.V5.Bloodhound.Types.Class
+        ,Database.V5.Bloodhound.Internal.Aggregation
+        ,Database.V5.Bloodhound.Internal.Analysis
+        ,Database.V5.Bloodhound.Internal.Client
+        ,Database.V5.Bloodhound.Internal.Highlight
+        ,Database.V5.Bloodhound.Internal.Newtypes
+        ,Database.V5.Bloodhound.Internal.Query
+        ,Database.V5.Bloodhound.Internal.Sort
+        ,Database.V5.Bloodhound.Internal.StringlyTyped
+        ,Database.V5.Bloodhound.Internal.Suggest
+    build-depends:
+        pindeps,
+        base,
+        bytestring,
+        containers,
+        aeson,
+        http-client,
+        network-uri,
+        semigroups,
+        time,
+        text,
+        mtl,
+        transformers,
+        http-types,
+        vector,
+        scientific,
+        blaze-builder,
+        exceptions,
+        hashable,
+        unordered-containers,
+        bloodhound-import,
+        v5-abstract
+    default-language: Haskell2010
+    hs-source-dirs: src
+    ghc-options: -Wall
+
+library v5-abstract
+    exposed-modules:
         Database.V5.Bloodhound
         Database.V5.Bloodhound.Client
         Database.V5.Bloodhound.Types
@@ -62,18 +116,8 @@ library
         Database.V5.Bloodhound.Internal.Sort
         Database.V5.Bloodhound.Internal.StringlyTyped
         Database.V5.Bloodhound.Internal.Suggest
-        Database.V1.Bloodhound
-        Database.V1.Bloodhound.Client
-        Database.V1.Bloodhound.Types
-        Database.V1.Bloodhound.Types.Class
-        Database.V1.Bloodhound.Internal.Aggregation
-        Database.V1.Bloodhound.Internal.Client
-        Database.V1.Bloodhound.Internal.Highlight
-        Database.V1.Bloodhound.Internal.Newtypes
-        Database.V1.Bloodhound.Internal.Query
-        Database.V1.Bloodhound.Internal.Sort
-        Database.V1.Bloodhound.Internal.StringlyTyped
-        Database.V1.Bloodhound.Internal.Suggest
+    other-modules:
+        Database.Bloodhound.Common.Script
     build-depends:
         pindeps,
         base,
@@ -97,8 +141,6 @@ library
         bloodhound-import
     default-language: Haskell2010
     hs-source-dirs: src
-    other-modules:
-        Database.Bloodhound.Common.Script
     ghc-options: -Wall
 
 library pindeps
