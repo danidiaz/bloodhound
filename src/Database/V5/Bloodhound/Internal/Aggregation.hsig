@@ -1,0 +1,204 @@
+signature Database.V5.Bloodhound.Internal.Aggregation where
+
+import           Bloodhound.Import
+
+import qualified Data.HashMap.Strict as HM
+import qualified Data.Map.Strict as M
+import qualified Data.Text as T
+
+import           Database.V5.Bloodhound.Internal.Client
+import           Database.V5.Bloodhound.Internal.Highlight (HitHighlight)
+import           Database.V5.Bloodhound.Internal.Newtypes
+import           Database.V5.Bloodhound.Internal.Query
+import           Database.V5.Bloodhound.Internal.Sort
+
+data Aggregations
+
+emptyAggregations :: Aggregations
+
+mkAggregations :: Text -> Aggregation -> Aggregations
+
+data Aggregation
+instance Eq Aggregation
+instance Show Aggregation
+instance ToJSON Aggregation
+
+data TopHitsAggregation 
+instance Eq TopHitsAggregation
+instance Show TopHitsAggregation
+
+data MissingAggregation 
+
+data TermsAggregation
+instance Eq TermsAggregation
+instance Show TermsAggregation
+
+data CardinalityAggregation
+instance Eq CardinalityAggregation
+instance Show CardinalityAggregation
+
+data DateHistogramAggregation
+instance Eq DateHistogramAggregation
+instance Show DateHistogramAggregation
+
+data DateRangeAggregation
+instance Eq DateRangeAggregation
+instance Show DateRangeAggregation
+instance ToJSON DateRangeAggregation
+
+data DateRangeAggRange
+instance Eq DateRangeAggRange
+instance Show DateRangeAggRange
+instance ToJSON DateRangeAggRange
+
+
+data ValueCountAggregation
+instance Eq ValueCountAggregation
+instance Show ValueCountAggregation
+
+data FilterAggregation
+instance Eq FilterAggregation
+instance Show FilterAggregation
+
+data StatisticsAggregation 
+instance Eq StatisticsAggregation
+instance Show StatisticsAggregation
+
+data StatsType
+instance Eq StatsType
+instance Show StatsType
+
+mkTermsAggregation :: Text -> TermsAggregation
+
+mkTermsScriptAggregation :: Text -> TermsAggregation
+
+mkDateHistogram :: FieldName -> Interval -> DateHistogramAggregation
+
+mkCardinalityAggregation :: FieldName -> CardinalityAggregation
+
+mkStatsAggregation :: FieldName -> StatisticsAggregation
+
+mkExtendedStatsAggregation :: FieldName -> StatisticsAggregation
+
+data AggregationResults
+
+--
+class BucketAggregation a where
+  key :: a -> BucketValue
+  docCount :: a -> Int
+  aggs :: a -> Maybe AggregationResults
+ --
+
+data Bucket a
+instance Read (Bucket a)
+instance Show (Bucket a)
+instance (FromJSON a) => FromJSON (Bucket a)
+
+data BucketValue
+instance Read BucketValue
+instance Show BucketValue
+instance FromJSON BucketValue
+
+data TermInclusion
+instance Eq TermInclusion
+instance Show TermInclusion
+instance ToJSON TermInclusion
+
+data TermOrder
+instance Eq TermOrder
+instance Show TermOrder
+instance ToJSON TermOrder
+
+data CollectionMode
+instance Eq CollectionMode
+instance Show CollectionMode
+instance ToJSON CollectionMode
+
+data ExecutionHint
+instance Eq ExecutionHint
+instance Show ExecutionHint
+instance ToJSON ExecutionHint
+
+data DateMathExpr 
+instance Eq DateMathExpr
+instance Show DateMathExpr
+instance ToJSON DateMathExpr
+
+data DateMathAnchor
+instance Eq DateMathAnchor
+instance Show DateMathAnchor
+
+data DateMathModifier 
+instance Eq DateMathModifier
+instance Show DateMathModifier
+
+data DateMathUnit
+instance Eq DateMathUnit
+instance Show DateMathUnit
+
+data TermsResult
+instance Read TermsResult
+instance Show TermsResult
+instance FromJSON TermsResult
+
+--
+instance BucketAggregation TermsResult where
+  key = termKey
+  docCount = termsDocCount
+  aggs = termsAggs
+--
+
+data DateHistogramResult
+instance Show DateHistogramResult
+instance FromJSON DateHistogramResult
+
+--
+instance BucketAggregation DateHistogramResult where
+  key = TextValue . showText . dateKey
+  docCount = dateDocCount
+  aggs = dateHistogramAggs
+--
+
+data DateRangeResult
+instance Eq DateRangeResult
+instance Show DateRangeResult
+instance FromJSON DateRangeResult
+  
+--
+instance BucketAggregation DateRangeResult where
+  key = TextValue . dateRangeKey
+  docCount = dateRangeDocCount
+  aggs = dateRangeAggs
+--
+
+toTerms :: Text -> AggregationResults -> Maybe (Bucket TermsResult)
+
+toDateHistogram :: Text -> AggregationResults -> Maybe (Bucket DateHistogramResult)
+
+toMissing :: Text -> AggregationResults -> Maybe MissingResult
+
+toTopHits :: (FromJSON a) => Text -> AggregationResults -> Maybe (TopHitResult a)
+
+toAggResult :: (FromJSON a) => Text -> AggregationResults -> Maybe a
+
+getNamedSubAgg :: Object -> [Text] -> Maybe AggregationResults
+
+data MissingResult
+instance Show MissingResult
+instance FromJSON MissingResult
+
+data TopHitResult a
+instance (Show a) => Show (TopHitResult a)
+instance (FromJSON a) => FromJSON (TopHitResult a)
+
+data SearchHits a
+instance (Eq a) => Eq (SearchHits a)
+instance (Show a) => Show (SearchHits a)
+instance (FromJSON a) => FromJSON (SearchHits a)
+instance Semigroup (SearchHits a)
+instance Monoid (SearchHits a)
+
+data Hit a
+instance (Eq a) => Eq (Hit a)
+instance (Show a) => Show (Hit a)
+instance (FromJSON a) => FromJSON (Hit a)

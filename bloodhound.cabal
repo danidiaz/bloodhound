@@ -61,20 +61,20 @@ library
         Database.V1.Bloodhound.Internal.Sort
         Database.V1.Bloodhound.Internal.StringlyTyped
         Database.V1.Bloodhound.Internal.Suggest
-    reexported-modules:
-          Database.V5.Bloodhound
-        , Database.V5.Bloodhound.Client
-        , Database.V5.Bloodhound.Types
-        , Database.V5.Bloodhound.Types.Class
-        , Database.V5.Bloodhound.Internal.Aggregation
-        , Database.V5.Bloodhound.Internal.Analysis
-        , Database.V5.Bloodhound.Internal.Client
-        , Database.V5.Bloodhound.Internal.Highlight
-        , Database.V5.Bloodhound.Internal.Newtypes
-        , Database.V5.Bloodhound.Internal.Query
-        , Database.V5.Bloodhound.Internal.Sort
-        , Database.V5.Bloodhound.Internal.StringlyTyped
-        , Database.V5.Bloodhound.Internal.Suggest
+--    reexported-modules:
+--          Database.V5.Bloodhound
+--        , Database.V5.Bloodhound.Client
+--        , Database.V5.Bloodhound.Types
+--        , Database.V5.Bloodhound.Types.Class
+--        , Database.V5.Bloodhound.Internal.Aggregation
+--        , Database.V5.Bloodhound.Internal.Analysis
+--        , Database.V5.Bloodhound.Internal.Client
+--        , Database.V5.Bloodhound.Internal.Highlight
+--        , Database.V5.Bloodhound.Internal.Newtypes
+--        , Database.V5.Bloodhound.Internal.Query
+--        , Database.V5.Bloodhound.Internal.Sort
+--        , Database.V5.Bloodhound.Internal.StringlyTyped
+--        , Database.V5.Bloodhound.Internal.Suggest
     build-depends:
         pindeps,
         base,
@@ -96,7 +96,8 @@ library
         hashable,
         unordered-containers,
         bloodhound-import,
-        v5-abstract
+        v5-abstract,
+        v5ab-aggregation-impls
     default-language: Haskell2010
     hs-source-dirs: src
     ghc-options: -Wall
@@ -132,12 +133,14 @@ library v5ab-aggregation-impls
     ghc-options: -Wall
 
 library v5-abstract
+    signatures:
+        Database.V5.Bloodhound.Internal.Aggregation
     exposed-modules:
         Database.V5.Bloodhound
         Database.V5.Bloodhound.Client
         Database.V5.Bloodhound.Types
         Database.V5.Bloodhound.Types.Class
-        Database.V5.Bloodhound.Internal.Aggregation
+--        Database.V5.Bloodhound.Internal.Aggregation
     reexported-modules:
           Database.V5.Bloodhound.Internal.Analysis
         , Database.V5.Bloodhound.Internal.Client
