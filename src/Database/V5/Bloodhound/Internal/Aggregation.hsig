@@ -13,6 +13,9 @@ import           Database.V5.Bloodhound.Internal.Query
 import           Database.V5.Bloodhound.Internal.Sort
 
 data Aggregations
+instance Eq Aggregations
+instance Show Aggregations
+instance ToJSON Aggregations
 
 emptyAggregations :: Aggregations
 
@@ -81,17 +84,20 @@ mkStatsAggregation :: FieldName -> StatisticsAggregation
 mkExtendedStatsAggregation :: FieldName -> StatisticsAggregation
 
 data AggregationResults
+instance Eq AggregationResults
+instance Show AggregationResults 
+instance FromJSON AggregationResults 
 
 --
-class BucketAggregation a where
-  key :: a -> BucketValue
-  docCount :: a -> Int
-  aggs :: a -> Maybe AggregationResults
- --
+--class BucketAggregation a where
+--  key :: a -> BucketValue
+--  docCount :: a -> Int
+--  aggs :: a -> Maybe AggregationResults
+-- 
 
 data Bucket a
-instance Read (Bucket a)
-instance Show (Bucket a)
+instance Read a => Read (Bucket a)
+instance Show a => Show (Bucket a)
 instance (FromJSON a) => FromJSON (Bucket a)
 
 data BucketValue
@@ -142,10 +148,10 @@ instance Show TermsResult
 instance FromJSON TermsResult
 
 --
-instance BucketAggregation TermsResult where
-  key = termKey
-  docCount = termsDocCount
-  aggs = termsAggs
+--instance BucketAggregation TermsResult where
+--  key = termKey
+--  docCount = termsDocCount
+--  aggs = termsAggs
 --
 
 data DateHistogramResult
@@ -153,10 +159,10 @@ instance Show DateHistogramResult
 instance FromJSON DateHistogramResult
 
 --
-instance BucketAggregation DateHistogramResult where
-  key = TextValue . showText . dateKey
-  docCount = dateDocCount
-  aggs = dateHistogramAggs
+--instance BucketAggregation DateHistogramResult where
+--  key = TextValue . showText . dateKey
+--  docCount = dateDocCount
+--  aggs = dateHistogramAggs
 --
 
 data DateRangeResult
@@ -165,10 +171,10 @@ instance Show DateRangeResult
 instance FromJSON DateRangeResult
   
 --
-instance BucketAggregation DateRangeResult where
-  key = TextValue . dateRangeKey
-  docCount = dateRangeDocCount
-  aggs = dateRangeAggs
+--instance BucketAggregation DateRangeResult where
+--  key = TextValue . dateRangeKey
+--  docCount = dateRangeDocCount
+--  aggs = dateRangeAggs
 --
 
 toTerms :: Text -> AggregationResults -> Maybe (Bucket TermsResult)
@@ -197,6 +203,8 @@ instance (Show a) => Show (SearchHits a)
 instance (FromJSON a) => FromJSON (SearchHits a)
 instance Semigroup (SearchHits a)
 instance Monoid (SearchHits a)
+
+hits      :: SearchHits a -> [Hit a]
 
 data Hit a
 instance (Eq a) => Eq (Hit a)

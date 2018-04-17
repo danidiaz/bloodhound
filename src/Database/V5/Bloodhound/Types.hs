@@ -366,7 +366,7 @@ module Database.V5.Bloodhound.Types
        , AggregationResults
        , BucketValue(..)
        , Bucket(..)
-       , BucketAggregation(..)
+--       , BucketAggregation(..)
        , TermsAggregation(..)
        , MissingAggregation(..)
        , ValueCountAggregation(..)
@@ -412,6 +412,7 @@ module Database.V5.Bloodhound.Types
        , TokenChar(..)
        , Shingle(..)
        , Language(..)
+       , hits
          ) where
 
 import           Bloodhound.Import
