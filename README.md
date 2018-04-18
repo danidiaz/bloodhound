@@ -11,6 +11,20 @@ cabal new-build
 cabal new-haddock --keep-going
 ```
 
+About Haddock & reexported-modules:
+
+- https://github.com/haskell/haddock/issues/563
+- https://github.com/haskell/hackage-server/issues/577
+
+```
+cabal new-repl lib:bloodhound
+ghci> import Database.V5A.Bloodhound
+ghci> import Database.V5B.Bloodhound
+```
+
+[Backpack & Stack.](https://github.com/commercialhaskell/stack/issues/2540)
+
+
 Bloodhound [![TravisCI](https://travis-ci.org/bitemyapp/bloodhound.svg)](https://travis-ci.org/bitemyapp/bloodhound) [![Hackage](https://img.shields.io/hackage/v/bloodhound.svg?style=flat)](https://hackage.haskell.org/package/bloodhound)
 ==========
 
