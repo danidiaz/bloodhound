@@ -1,0 +1,3 @@
+module ShutUpHaddock where
+
+
