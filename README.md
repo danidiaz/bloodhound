@@ -1,3 +1,16 @@
+A proof-of-concept of a Backpackized Bloodhound
+===============================================
+
+[cabal-install 2.2](https://www.haskell.org/cabal/download.html) is required.
+
+```
+cabal new-build
+```
+
+```
+cabal new-haddock --keep-going
+```
+
 Bloodhound [![TravisCI](https://travis-ci.org/bitemyapp/bloodhound.svg)](https://travis-ci.org/bitemyapp/bloodhound) [![Hackage](https://img.shields.io/hackage/v/bloodhound.svg?style=flat)](https://hackage.haskell.org/package/bloodhound)
 ==========
 

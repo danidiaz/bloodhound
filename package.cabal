@@ -39,6 +39,10 @@ library
         , Database.V5A.Bloodhound.Client
         , Database.V5A.Bloodhound.Types
         , Database.V5A.Bloodhound.Types.Class
+        , Database.V5B.Bloodhound
+        , Database.V5B.Bloodhound.Client
+        , Database.V5B.Bloodhound.Types
+        , Database.V5B.Bloodhound.Types.Class
 --        , Database.V5.Bloodhound.Internal.Aggregation
 --        , Database.V5.Bloodhound.Internal.Analysis
 --        , Database.V5.Bloodhound.Internal.Client
@@ -79,7 +83,14 @@ library
              Database.V5.Bloodhound.Types as Database.V5A.Bloodhound.Types, 
              Database.V5.Bloodhound.Types.Class as Database.V5A.Bloodhound.Types.Class)
             requires (Database.V5.Bloodhound.Internal.Aggregation 
-                        as Database.V5A.Bloodhound.Internal.Aggregation)
+                        as Database.V5A.Bloodhound.Internal.Aggregation),
+        v5-abstract 
+            (Database.V5.Bloodhound as Database.V5B.Bloodhound, 
+             Database.V5.Bloodhound.Client as Database.V5B.Bloodhound.Client, 
+             Database.V5.Bloodhound.Types as Database.V5B.Bloodhound.Types, 
+             Database.V5.Bloodhound.Types.Class as Database.V5B.Bloodhound.Types.Class)
+            requires (Database.V5.Bloodhound.Internal.Aggregation 
+                        as Database.V5B.Bloodhound.Internal.Aggregation)
     default-language: Haskell2010
     hs-source-dirs: src
     ghc-options: -Wall
@@ -111,7 +122,7 @@ library v5-aggregation-impls
         bloodhound-import,
         v5-internal-minus-aggregation
     default-language: Haskell2010
-    hs-source-dirs: src
+    hs-source-dirs: lib-v5-impls
     ghc-options: -Wall
 
 library v5-abstract
@@ -146,7 +157,7 @@ library v5-abstract
         bloodhound-import,
         v5-internal-minus-aggregation
     default-language: Haskell2010
-    hs-source-dirs: src
+    hs-source-dirs: lib-v5-abstract
     ghc-options: -Wall
 
 library v5-internal-minus-aggregation
@@ -183,7 +194,7 @@ library v5-internal-minus-aggregation
         unordered-containers,
         bloodhound-import
     default-language: Haskell2010
-    hs-source-dirs: src
+    hs-source-dirs: lib-v5-internal
     ghc-options: -Wall
 
 library bloodhound-import
@@ -210,7 +221,7 @@ library bloodhound-import
         hashable,
         unordered-containers
     default-language: Haskell2010
-    hs-source-dirs: src
+    hs-source-dirs: lib-v5-import
     ghc-options: -Wall
 
 library pindeps
